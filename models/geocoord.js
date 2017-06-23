@@ -27,41 +27,30 @@ module.exports.calculateGCircle = function(firstID, secondID, callback){
 	        firstID,
 	        secondID
 	    ]}
-	}, function(err, docs){
-	     console.log(docs);
+	}, function(err, results){
+		var lat1 = results[0].lat;
+		var lat2 = results[1].lat;
+		var lon1 = results[0].lon;
+		var lon2 = results[1].lon;
+		var R = 6371e3; // metres
+		var φ1 = lat1.toRadians();
+		var φ2 = lat2.toRadians();
+		var Δφ = (lat2-lat1).toRadians();
+		var Δλ = (lon2-lon1).toRadians();
+
+		var a = Math.sin(Δφ/2) * Math.sin(Δφ/2) +
+		Math.cos(φ1) * Math.cos(φ2) *
+		Math.sin(Δλ/2) * Math.sin(Δλ/2);
+		var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
+
+		var d = R * c;
+		console.log(d);
+	return callback(d);
+		//callback(results);
+		//results.send(d);
+		// save value to DB
 	});
-	/*GeoCoord.findById(firstID, function(err, secondID, firstCoord){
-		if(err){ throw err; }
-		console.log(firstCoord);
-		var secondCoord;
-		
-	});
-
-
-	GeoCoord.findById(secondID, function(err, secondCoord){
-		if(err){ throw err; }
-		console.log(secondCoord);
-	});
-	//return callback(0);
-
-		//console.log(firstCoord);
-	//	console.log(secondCoord);
-
-	var R = 6371e3; // metres
-	var φ1 = firstCoord.lat.toRadians();
-	var φ2 = secondCoord.lat.toRadians();
-	var Δφ = (secondCoord.lat-firstCoord.lat).toRadians();
-	var Δλ = (secondCoord.lon-firstCoord.lon).toRadians();
-
-	var a = Math.sin(Δφ/2) * Math.sin(Δφ/2) +
-	        Math.cos(φ1) * Math.cos(φ2) *
-	        Math.sin(Δλ/2) * Math.sin(Δλ/2);
-	var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
-
-	var d = R * c;
-console.log(d);*/
 	return callback(0);
-	//res.send(distance);
 };
 
 
@@ -79,3 +68,10 @@ var a = Math.sin(Δφ/2) * Math.sin(Δφ/2) +
 var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
 
 var d = R * c;*/
+
+/** Converts numeric degrees to radians */
+if (typeof(Number.prototype.toRadians) === "undefined") {
+  Number.prototype.toRadians = function() {
+    return this * Math.PI / 180;
+  }
+}
