@@ -10,13 +10,19 @@ GeoCoord = require('./models/geocoord');
 mongoose.connect('mongodb://localhost/bitbakery');
 var db = mongoose.connection;
 
-var autoIncrement = require('mongoose-auto-increment');
-autoIncrement.initialize(db);
+
 
 app.post('/', function(req, res){
-	var genre = req.body;
+	var geocoord = req.body;
 	GeoCoord.addGeoCoord(geocoord, function(err, geocoord){
 		if(err){ throw err;}
 		res.json(geocoord);
 	});
 });
+
+
+
+
+app.listen(3000);
+
+console.log('Running on port 3000...');

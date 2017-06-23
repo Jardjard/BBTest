@@ -4,12 +4,8 @@ var autoIncrement = require('mongoose-auto-increment');
 autoIncrement.initialize(mongoose.connection);
 
 var geocoordSchema = mongoose.Schema({
-	lat:{
-		type:Number
-	},
-	long:{
-		type:Number
-	}
+	lat:Number,
+	long:Number
 });
 
 
@@ -21,5 +17,5 @@ var GeoCoord = module.exports = mongoose.model('GeoCoord', geocoordSchema);
 
 // Add book
 module.exports.addGeoCoord = function(geocoord, callback){
-	Geocoord.create(geocoord, callback);
+	GeoCoord.create(geocoord, callback);
 }
