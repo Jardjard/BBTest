@@ -17,20 +17,18 @@ app.post('/', function(req, res){
 	var geocoord = req.body;
 	GeoCoord.addGeoCoord(geocoord, function(err, geocoord){
 		if(err){ throw err; }
+		console.log(res);
 		res.json(geocoord);
 	});
 });
 
 
 app.get('/:firstID/:secondID', function(req, res){
-	//var data = {
-	//	"lat": req.params.lat,
-	//	"lon": req.params.lon
-	//}
+	var distance = 0;
 	console.log(req.params);
-	GeoCoord.calculate(req.params.firstID, req.params.secondID, function(err, geocoord){
+	GeoCoord.calculateGCircle(req.params.firstID, req.params.secondID, function(err, distance){
 		if(err) { throw err;}
-		res.json(geocoord);
+		res.json(distance);
 	});
 });
 
