@@ -1,0 +1,11 @@
+{
+  "name": "bbtest",
+  "version": "1.0.0",
+  "description": "test for bit bakery",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Jared Lerner",
+  "license": "ISC"
+}
