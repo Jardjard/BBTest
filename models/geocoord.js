@@ -22,17 +22,31 @@ module.exports.addGeoCoord = function(geocoord, callback){
 
 module.exports.calculateGCircle = function(firstID, secondID, callback){
 	var firstCoord, secondCoord;
-	GeoCoord.findById(firstID, function(err, firstCoord){
+	GeoCoord.find({
+	    '_id': { $in: [
+	        firstID,
+	        secondID
+	    ]}
+	}, function(err, docs){
+	     console.log(docs);
+	});
+	/*GeoCoord.findById(firstID, function(err, secondID, firstCoord){
 		if(err){ throw err; }
 		console.log(firstCoord);
+		var secondCoord;
+		
 	});
+
+
 	GeoCoord.findById(secondID, function(err, secondCoord){
 		if(err){ throw err; }
 		console.log(secondCoord);
 	});
-	return callback(0);
+	//return callback(0);
 
-/*
+		//console.log(firstCoord);
+	//	console.log(secondCoord);
+
 	var R = 6371e3; // metres
 	var φ1 = firstCoord.lat.toRadians();
 	var φ2 = secondCoord.lat.toRadians();
@@ -45,8 +59,8 @@ module.exports.calculateGCircle = function(firstID, secondID, callback){
 	var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
 
 	var d = R * c;
-
-	return callback(d);*/
+console.log(d);*/
+	return callback(0);
 	//res.send(distance);
 };
 
