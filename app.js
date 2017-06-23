@@ -17,22 +17,28 @@ app.post('/', function(req, res){
 	var geocoord = req.body;
 	GeoCoord.addGeoCoord(geocoord, function(err, geocoord){
 		if(err){ throw err; }
-		console.log(res);
 		res.json(geocoord);
 	});
 });
 
-
-app.get('/:firstID/:secondID', function(req, res){
+app.get('/', function(req, res){
+	//console.log(req.query.firstID);
 	var distance = 0;
-	console.log(req.params);
+	GeoCoord.calculateGCircle(req.query.firstID, req.query.secondID, function(err, distance){
+		if(err) { throw err;}
+		res.json(distance);
+	});
+	//res.send('Please use ?firstID=#&secondID=#');
+});
+/*
+app.get('/:firstID/:secondID', function(req, res){
+	console.log(req);
+	var distance = 0;
 	GeoCoord.calculateGCircle(req.params.firstID, req.params.secondID, function(err, distance){
 		if(err) { throw err;}
 		res.json(distance);
 	});
-});
-
-
+});*/
 
 app.listen(3000);
 

@@ -25,14 +25,32 @@ module.exports.calculateGCircle = function(firstID, secondID, callback){
 	GeoCoord.findById(firstID, function(err, firstCoord){
 		if(err){ throw err; }
 		console.log(firstCoord);
-		//res.json(geocoord);
 	});
 	GeoCoord.findById(secondID, function(err, secondCoord){
 		if(err){ throw err; }
 		console.log(secondCoord);
-		//res.json(geocoord);
 	});
+	return callback(0);
+
+/*
+	var R = 6371e3; // metres
+	var φ1 = firstCoord.lat.toRadians();
+	var φ2 = secondCoord.lat.toRadians();
+	var Δφ = (secondCoord.lat-firstCoord.lat).toRadians();
+	var Δλ = (secondCoord.lon-firstCoord.lon).toRadians();
+
+	var a = Math.sin(Δφ/2) * Math.sin(Δφ/2) +
+	        Math.cos(φ1) * Math.cos(φ2) *
+	        Math.sin(Δλ/2) * Math.sin(Δλ/2);
+	var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
+
+	var d = R * c;
+
+	return callback(d);*/
+	//res.send(distance);
 };
+
+
 
 
 /*var R = 6371e3; // metres
