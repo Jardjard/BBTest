@@ -15,7 +15,7 @@ var db = mongoose.connection;
 app.post('/', function(req, res){
 	var geocoord = req.body;
 	GeoCoord.addGeoCoord(geocoord, function(err, geocoord){
-		if(err){ throw err;}
+		if(err){ throw err; }
 		res.json(geocoord);
 	});
 });
