@@ -3,6 +3,7 @@ var app = express();
 var bodyParser = require('body-parser');
 var mongoose = require('mongoose');
 
+app.use(bodyParser.json());
 
 GeoCoord = require('./models/geocoord');
 
@@ -20,6 +21,18 @@ app.post('/', function(req, res){
 	});
 });
 
+
+app.get('/:firstID/:secondID', function(req, res){
+	//var data = {
+	//	"lat": req.params.lat,
+	//	"lon": req.params.lon
+	//}
+	console.log(req.params);
+	GeoCoord.calculate(req.params.firstID, req.params.secondID, function(err, geocoord){
+		if(err) { throw err;}
+		res.json(geocoord);
+	});
+});
 
 
 
